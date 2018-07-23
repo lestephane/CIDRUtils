@@ -100,6 +100,11 @@ public class CIDRUtilsTest {
     }
 
     @Test
+    public void testInRangeV4Localhost() throws Exception {
+        assertTrue(new CIDRUtils("127.0.0.1/32").isInHostsRange("127.0.0.1"));
+    }
+
+    @Test
     public void testInRangeV4() throws Exception {
         CIDRUtils cu = new CIDRUtils("192.168.1.2/24");
         assertNotNull(cu.getNetworkAddress());
