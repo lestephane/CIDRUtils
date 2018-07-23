@@ -46,7 +46,7 @@ public final class CIDRUtils {
     private static final int MAXPREFIX_V6 = 128;
     private static final String ILLEGAL_ARGUMENT_MSG = "Not a valid CIDR format!";
     private static final String INVALID_EMPTY_ADDR = "Invalid empty address!";
-    private static final String INVALID_ADDR = "Invalid address!";
+    private static final String INVALID_ADDR_FMT = "Invalid address: %s";
 
     private InetAddress inetAddress;
     private InetAddress startAddress;
@@ -162,7 +162,7 @@ public final class CIDRUtils {
             throw new UnknownHostException(INVALID_EMPTY_ADDR);
         }
         if (!isValidV4(addr) && !isValidV6(addr)) {
-            throw new UnknownHostException(INVALID_ADDR);
+            throw new UnknownHostException(String.format(INVALID_ADDR_FMT, addr));
         }
     }
 

@@ -57,6 +57,14 @@ public class CIDRUtilsTest {
         CIDRUtils.validateIpAddress("::1");
     }
 
+    /**
+     * https://en.wikipedia.org/wiki/IPv6_address#Scoped_literal_IPv6_addresses
+     */
+    @Test
+    public void testValidScopedLiteralIpv6Address() throws Exception {
+        CIDRUtils.validateIpAddress("fe80::1ff:fe23:4567:890a%eth2");
+    }
+
     @Test(expected=IllegalArgumentException.class)
     public void testEmptyArg() throws Exception {
         new CIDRUtils("");
@@ -120,6 +128,7 @@ public class CIDRUtilsTest {
         assertEquals("Network address", cu.getNetworkAddress(), "435:23f:0:0:0:0:0:0");
         assertEquals("Broadcast address", cu.getBroadcastAddress(), "435:23f:0:0:0:0:7ff:ffff");
         assertTrue("In range", cu.isInRange("435:23f:0:0:0:0:0:1"));
+        assertTrue("In range", cu.isInRange("435:23f:0:0:0:0:0:1%eth2"));
         assertTrue("In range", cu.isInRange("435:23f:0:0:0:0:7ff:ffff"));
         assertTrue("In range", cu.isInHostsRange("435:23f:0:0:0:0:7ff:fffe"));
         assertFalse("In range", cu.isInHostsRange("435:23f:0:0:0:0:7ff:ffff"));
